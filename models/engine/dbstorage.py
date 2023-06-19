@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import os
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -18,7 +18,7 @@ from models.medical_history import MedicalHistory
 from models.medication_model import Medication
 from models.previous_doctor import PreviousDoctor
 
-# load_dotenv()
+load_dotenv()
 
 class DBStorage:
 
@@ -26,19 +26,15 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        # host=os.getenv('HOST')
-        # user=os.getenv('USER')
-        # password=os.getenv('PASSWORD')
-        # database=os.getenv('DATABASE')
-        user='med_admin'
-        host='localhost'
-        database='mediapp'
-        password='med_admin_pwd'
-        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-                                        format(user,
-                                            password,
-                                            host,
-                                            database))
+        db_url = os.getenv('DATABASE_URL')
+        # self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+        #                                 format(user,
+        #                                     password,
+        #                                     host,
+        #                                 port,
+        #                                     database))
+        self.__engine = create_engine(db_url, pool_pre_ping=True)
+        
     def new(self, obj):
         self.__session.add(obj)
 

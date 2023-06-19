@@ -29,4 +29,4 @@ app.register_blueprint(app_views)
 app.register_blueprint(main)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port='7906', debug=True)
