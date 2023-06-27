@@ -4,3 +4,4 @@ mysqlclient
 gunicorn
 python-dotenv
 pymysql
+cryptography
