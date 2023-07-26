@@ -26,14 +26,20 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        db_url = os.getenv('DATABASE_URL')
-        # self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
-        #                                 format(user,
-        #                                     password,
-        #                                     host,
-        #                                 port,
-        #                                     database))
-        self.__engine = create_engine(db_url, pool_pre_ping=True)
+        # db_url = os.getenv('DATABASE_URL')
+        user = os.getenv('DB_USER')
+        password = os.getenv('DB_PASSWORD')
+        host = os.getenv('DB_HOST')
+        database = os.getenv('DB_DATABASE')
+        port = os.getenv('DB_PORT')
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
+                                        format(user,
+                                            password,
+                                            host,
+                                        port,
+                                            database))
+        # self.__engine = create_engine(db_url, pool_pre_ping=True)
+        
         
     def new(self, obj):
         self.__session.add(obj)
